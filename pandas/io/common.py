@@ -36,7 +36,7 @@ if compat.PY3:
     from urllib.error import URLError
     from http.client import HTTPException  # noqa
 else:
-    from urllib2 import urlopen as urlopen2
+    from urllib2 import urlopen
     from urllib import urlencode, pathname2url  # noqa
     from urlparse import urlparse as parse_url
     from urlparse import uses_relative, uses_netloc, uses_params, urljoin
@@ -45,11 +45,6 @@ else:
     from contextlib import contextmanager, closing  # noqa
     from functools import wraps  # noqa
 
-    # @wraps(urlopen2)
-    @contextmanager
-    def urlopen(*args, **kwargs):
-        with closing(urlopen2(*args, **kwargs)) as f:
-            yield f
 
 
 _VALID_URLS = set(uses_relative + uses_netloc + uses_params)
